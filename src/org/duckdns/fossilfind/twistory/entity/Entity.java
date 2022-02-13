@@ -1,6 +1,5 @@
 package org.duckdns.fossilfind.twistory.entity;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 public abstract class Entity
@@ -63,11 +62,7 @@ public abstract class Entity
 		y += yMove;
 	}
 	
-	public void render(Graphics g)
-	{
-		g.setColor(Color.red);
-		g.fillRect((int) x, (int) y, sizeX, sizeY);
-	}
+	public abstract void render(Graphics g);
 	
 	public double getX()
 	{

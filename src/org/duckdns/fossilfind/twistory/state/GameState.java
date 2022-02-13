@@ -6,7 +6,7 @@ import org.duckdns.fossilfind.twistory.entity.player.Player;
 
 public class GameState extends State
 {
-	private Player player = new Player();
+	private Player player;
 	
 	public GameState()
 	{
