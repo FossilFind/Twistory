@@ -7,6 +7,7 @@ public abstract class Entity
 	protected double x = 0, y = 0;
 	protected double xMove, yMove;
 	protected final int sizeX, sizeY;
+
 	protected final double speed;
 	
 	public Entity(int sizeX, int sizeY, double speed)
@@ -72,5 +73,15 @@ public abstract class Entity
 	public double getY()
 	{
 		return y;
+	}
+	
+	public int getSizeX()
+	{
+		return sizeX;
+	}
+	
+	public int getSizeY()
+	{
+		return sizeY;
 	}
 }

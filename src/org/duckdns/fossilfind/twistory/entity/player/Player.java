@@ -12,6 +12,7 @@ import javax.imageio.ImageIO;
 import org.duckdns.fossilfind.twistory.Twistory;
 import org.duckdns.fossilfind.twistory.entity.Entity;
 import org.duckdns.fossilfind.twistory.image.Animation;
+import org.duckdns.fossilfind.twistory.image.Camera;
 
 public class Player extends Entity
 {
@@ -20,13 +21,18 @@ public class Player extends Entity
 	private BufferedImage[] idles;
 	private int currentAnim = 0;
 	
+	private BufferedImage main;
+	
 	public Player()
 	{
 		super(150, 150, 3);
 		
+		x = 1000;
+		y = 800;
+		
 		try
 		{
-			BufferedImage main = ImageIO.read(new File("./textures/test/gavin_test_sprite.png"));
+			main = ImageIO.read(new File("./textures/test/gavin_test_sprite.png"));
 			
 			idles = new BufferedImage[] { main.getSubimage(0, 0, 63, 63), main.getSubimage(0, 64, 63, 63), main.getSubimage(0, 128, 63, 63), main.getSubimage(0, 192, 63, 63) };
 			
@@ -146,11 +152,11 @@ public class Player extends Entity
 	public void render(Graphics g)
 	{
 		g.setColor(Color.blue);
-		g.fillRect((int) followX, (int) followY, sizeY, sizeX);
+		g.fillRect((int) (followX - Camera.xOffset(this)), (int) (followY - Camera.yOffset(this)), sizeY, sizeX);
 		
 		if(xMove != 0 || yMove != 0)
-			g.drawImage(animations[currentAnim].getCurrentFrame(), (int) x, (int) y, sizeX, sizeY, null);
+			g.drawImage(animations[currentAnim].getCurrentFrame(), (int) (x - Camera.xOffset(this)), (int) (y - Camera.yOffset(this)), sizeX, sizeY, null);
 		else
-			g.drawImage(idles[currentAnim], (int) x, (int) y, sizeX, sizeY, null);
+			g.drawImage(idles[currentAnim], (int) (x - Camera.xOffset(this)), (int) (y - Camera.yOffset(this)), sizeX, sizeY, null);
 	}
 }
