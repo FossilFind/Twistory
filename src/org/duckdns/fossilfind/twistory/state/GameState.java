@@ -6,6 +6,13 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import org.duckdns.fossilfind.twistory.entity.player.Player;
 import org.duckdns.fossilfind.twistory.image.Camera;
@@ -20,8 +27,17 @@ public class GameState extends State
 		try
 		{
 			ground = ImageIO.read(new File("./textures/test/test_map.png"));
+			
+			AudioInputStream stream = AudioSystem.getAudioInputStream(new File("./textures/test/test_audio.wav"));
+			Clip clip = (Clip) AudioSystem.getLine(new DataLine.Info(Clip.class, stream.getFormat()));
+			
+			clip.open(stream);
+			
+			((FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN)).setValue(-15);
+			
+			clip.start();
 		}
-		catch (IOException e)
+		catch (IOException | UnsupportedAudioFileException | LineUnavailableException e)
 		{
 			e.printStackTrace();
 		}

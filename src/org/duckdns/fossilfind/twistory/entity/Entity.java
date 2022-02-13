@@ -19,7 +19,7 @@ public abstract class Entity
 	
 	public void update(double delta)
 	{
-		final double slow = delta / 3;
+		final double slow = delta / 10;
 		
 		if(xMove > speed)
 			xMove = speed;
