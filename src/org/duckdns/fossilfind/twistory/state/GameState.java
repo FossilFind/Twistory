@@ -22,14 +22,17 @@ public class GameState extends State
 	private BufferedImage ground;
 	private Player player;
 	
+	private AudioInputStream stream;
+	private Clip clip;
+	
 	public GameState()
 	{
 		try
 		{
 			ground = ImageIO.read(new File("./textures/test/test_map.png"));
 			
-			AudioInputStream stream = AudioSystem.getAudioInputStream(new File("./textures/test/test_audio.wav"));
-			Clip clip = (Clip) AudioSystem.getLine(new DataLine.Info(Clip.class, stream.getFormat()));
+			stream = AudioSystem.getAudioInputStream(new File("./textures/test/test_audio.wav"));
+			clip = (Clip) AudioSystem.getLine(new DataLine.Info(Clip.class, stream.getFormat()));
 			
 			clip.open(stream);
 			
@@ -43,6 +46,21 @@ public class GameState extends State
 		}
 		
 		player = new Player();
+	}
+	
+	@Override
+	public void close()
+	{
+		try
+		{
+			stream.close();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		
+		clip.close();
 	}
 	
 	@Override

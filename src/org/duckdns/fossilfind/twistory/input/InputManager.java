@@ -9,6 +9,8 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
 
+import org.duckdns.fossilfind.twistory.input.ui.Button;
+
 public class InputManager implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener
 {
 	public boolean[] pressingKey = new boolean[256];
@@ -16,7 +18,8 @@ public class InputManager implements KeyListener, MouseListener, MouseMotionList
 	public int mouseX, mouseY;
 	public int mouseWheel;
 	
-	private ArrayList<KeyBind> keyBinds = new ArrayList<KeyBind>();
+	private ArrayList<KeyBind> keyBinds = new ArrayList<>();
+	private ArrayList<Button> buttons = new ArrayList<>();
 	
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e)
@@ -53,6 +56,11 @@ public class InputManager implements KeyListener, MouseListener, MouseMotionList
 	public void mouseReleased(MouseEvent e)
 	{
 		mouseButton[e.getButton()] = false;
+		
+		if(e.getButton() == MouseEvent.BUTTON1)
+			for(Button button : buttons)
+				if(button.hovering(mouseX, mouseY))
+					button.getAction().run();
 	}
 	
 	@Override
@@ -101,8 +109,23 @@ public class InputManager implements KeyListener, MouseListener, MouseMotionList
 				bind.resetExecuted();
 	}
 	
-	public void addAction(int key, InputAction action)
+	public void addKeyListener(int key, InputAction action)
 	{
 		keyBinds.add(new KeyBind(key, action));
+	}
+	
+	public void removeKeyListener(int key)
+	{
+		keyBinds.remove(new KeyBind(key, null));
+	}
+	
+	public void addButtonListener(Button button)
+	{
+		buttons.add(button);
+	}
+	
+	public void removeButtonListener(Button button)
+	{
+		buttons.remove(button);
 	}
 }

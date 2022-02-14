@@ -8,7 +8,7 @@ import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 
 import org.duckdns.fossilfind.twistory.input.InputManager;
-import org.duckdns.fossilfind.twistory.state.GameState;
+import org.duckdns.fossilfind.twistory.state.MainMenuState;
 import org.duckdns.fossilfind.twistory.state.State;
 
 public class Twistory implements Runnable
@@ -93,7 +93,7 @@ public class Twistory implements Runnable
 	@Override
 	public void run()
 	{
-		State.setCurrentState(new GameState());
+		State.setCurrentState(new MainMenuState());
 		
 		double tick = 1000 / 60;
 		double delta = 0;

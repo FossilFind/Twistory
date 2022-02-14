@@ -13,8 +13,12 @@ public abstract class State
 	
 	public static void setCurrentState(State state)
 	{
+		if(currentState != null)
+			currentState.close();
 		currentState = state;
 	}
+	
+	public void close() { }
 	
 	public abstract void update(double delta);
 	

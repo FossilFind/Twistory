@@ -41,4 +41,10 @@ public class KeyBind
 	{
 		executed = false;
 	}
+	
+	@Override
+	public boolean equals(Object obj)
+	{
+		return obj instanceof KeyBind bind ? bind.key == key : false;
+	}
 }
